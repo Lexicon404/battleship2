@@ -3,7 +3,12 @@ import { renderPlayerBoard } from '../components/renderPlayerBoard.js'
 import { renderEnemyBoard } from '../components/renderEnemyBoard.js'
 import { renderStatus } from '../components/showStatus.js'
 
+let init = () => {
+    renderPlayerBoard;
+    renderEnemyBoard;
+    renderStatus}
 
+init();
 
 let newGame = document.getElementById('newGame')
 
@@ -17,9 +22,8 @@ let setSubmarine = document.getElementById('setSubmarine')
 
 let setDestroyer = document.getElementById('setDestroyer')
 
-let axisX = document.getElementById('axisX')
+let orientation = document.getElementById('orientation') as HTMLInputElement;
 
-let axisY = document.getElementById('axisY')
 
 if (newGame){
     newGame.addEventListener('click', () => {
@@ -62,16 +66,21 @@ if(setDestroyer){
 }
 
 
-if(axisX){
-    axisX.addEventListener('click', () => {
-        game.dispatch('selectAxis', 'x')
-    })
-}
+// if(axisX){
+//     axisX.addEventListener('click', () => {
+//         game.dispatch('selectAxis', 'x')
+//     })
+// }
 
 
-if(axisY){
-    axisY.addEventListener('click', () => {
+
+
+orientation.addEventListener('click', () => {
+    if (orientation.textContent === 'Horizontal'){
         game.dispatch('selectAxis', 'y')
-    })
-}
-
+        orientation.textContent = 'Vertical'
+    } else {
+        game.dispatch('selectAxis', 'x')
+        orientation.textContent = 'Horizontal'
+    }
+})

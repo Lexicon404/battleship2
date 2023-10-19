@@ -1,5 +1,5 @@
-import type {ShipData, State, Fleet, Position, ModelName, xy, PositionArray} from '../lib/types'
-import {modelName, XY } from '../lib/types'
+import type {ShipData, State, Position, ModelName, xy} from '../lib/types'
+import {modelName, XY } from '../lib/types.js'
 
 export default {
 
@@ -18,10 +18,11 @@ export default {
 
     setBoards(state: State, payload: Array<object>){
 
-        var tempState: any = []
+        var tempState: any = {};
+        tempState.board = [];
         tempState['board'].push(payload[0]);
         tempState['board'].push(payload[1]);
-        tempState['axis'] = 'x'
+        tempState.axis = 'x'
 
         state = tempState
         return state;

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship v2</title>
     <link rel="stylesheet" href="./global.css" />
-    <script type= "module" src="./game/index.js" defer></script>
+    <script type= "module" src="../dist/game/index.js" defer></script>
 </head>
 <body>
     <header>
@@ -24,11 +24,10 @@
             <button id='setCruiser'>Cruiser</button>
             <button id='setSubmarine'>Submarine</button>
             <button id='setDestroyer'>Destroyer</button>
-            <button id='axisX'>Horizontal</button>
-            <button id='axisY'>Vertical</button>
+            <button id='orientation'>Horizontal</button>
         </div>
-        <div id="player-board" class="board"></div>
-        <div id="enemy-board" class="board"></div>
+        <div id="large-board-container"></div>
+        <div id="small-board-container"></div>
         <div id="status-board" class="board-status-bottom"></div>
     </div>
 

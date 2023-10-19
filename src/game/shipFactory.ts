@@ -1,4 +1,4 @@
-import type {PositionArray, Position, PositionWithHitProp, PositionArrayWithHitProp, Ship, ModelName} from '../lib/types.ts'
+import type {PositionArray, Position, PositionWithHitProp, PositionArrayWithHitProp, Ship, ModelName} from '../lib/types'
 
 
 export default function Ship(shipModel: ModelName, shipPosition: PositionArray):Ship { //name: string, health: 

@@ -1,24 +1,22 @@
-"use strict";
-exports.__esModule = true;
-function Ship(shipModel, shipPosition) {
+export default function Ship(shipModel, shipPosition) {
     var model = shipModel;
     var position = setHitProp(shipPosition);
     return {
-        model: model,
-        position: position,
-        receiveHit: receiveHit,
-        isSunk: isSunk
+        model,
+        position,
+        receiveHit,
+        isSunk
     };
     function setHitProp(posArray) {
         function addHitProp(pos) {
             return Object.assign(pos, { hit: false });
         }
-        var newPosArray = posArray.map(function (pos) { return addHitProp(pos); });
+        var newPosArray = posArray.map(pos => addHitProp(pos));
         return newPosArray; // returned newposArray: [...{x:num, y:num, hit:false}]
     }
     ;
     function checkHealth() {
-        var health = position.filter(function (coord) { return !coord.hit; });
+        var health = position.filter(coord => !coord.hit);
         return health.length;
     }
     ;
@@ -32,7 +30,7 @@ function Ship(shipModel, shipPosition) {
     ;
     function receiveHit(pos) {
         if (!isSunk()) {
-            var posHit = position.find(function (coord) { return coord.x == pos.x && coord.y == pos.y; });
+            var posHit = position.find(coord => coord.x == pos.x && coord.y == pos.y);
             if (posHit) {
                 posHit.hit = true; //result modifies the position array directly
                 return true;
@@ -42,4 +40,3 @@ function Ship(shipModel, shipPosition) {
     }
     ;
 }
-exports["default"] = Ship;

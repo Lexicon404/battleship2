@@ -7,19 +7,14 @@ var renderComponent = function(props: State){
     console.log("render function triggered")
     console.log(props)
 
-    var container = document.getElementById('enemy-board');
+    if (props.status == 'placingShips' || props.status == '') return;
 
-    if (!container) return;
-
-    if (props.status == 'placingShips' || props.status == ''){
-        container.innerHTML = ''
-        return;
-    }
-    
     //Builds enemy board for ship placement
     var board = document.createElement('div');
 
-    board.setAttribute('class', 'board');
+    var container = document.getElementById('large-board-container');
+
+    board.setAttribute('class', 'board-large');
 
     for (let i=9; i>=0; i--){
         for (let j=0; j<10; j++){
@@ -31,10 +26,11 @@ var renderComponent = function(props: State){
         }
     }
 
-    container.innerHTML = ''
-    container.appendChild(board)
+    if (!container) return;
 
-    container.classList.add('board-large')
+    container.innerHTML = ''
+
+    container.appendChild(board)
     
 
     //add eventlisteners to monitor board clicks

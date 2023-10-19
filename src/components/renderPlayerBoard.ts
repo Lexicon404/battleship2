@@ -6,15 +6,22 @@ import type {State} from "../lib/types"
 var renderComponent = function(props: State){
     console.log("render function triggered")
     console.log(props)
+
+    function obtainClickPosition(e: Event){  
+        console.log(e) 
+        if (!e.target) return;
+
+        let payload = {
+        x: Number((e.target as HTMLElement).dataset.positionx),
+        y: Number((e.target as HTMLElement).dataset.positiony)
+        }
+        game.dispatch('clickBoard', payload)
+    }
     
     //Builds player board for ship placement
-    var container = document.getElementById('player-board');
-
-    if (!container) return;
 
     var board = document.createElement('div');
 
-    board.setAttribute('class', 'board');
     for (let i=9; i>=0; i--){
         for (let j=0; j<10; j++){
         let grid = document.createElement('div')
@@ -25,29 +32,29 @@ var renderComponent = function(props: State){
         }
     }
 
+
+    if (props.status == 'placingShips'){
+        var container = document.getElementById('large-board-container');
+        var smallContainer = document.getElementById('small-board-container')
+        board.classList.add('board-large')
+        board.addEventListener('click', (e)=>obtainClickPosition(e))
+        if (smallContainer){
+            smallContainer.innerHTML = ""
+        }
+
+    } else {
+        var container = document.getElementById('small-board-container');
+        board.classList.remove('board-large')
+        board.classList.add('board-small')
+        board.removeEventListener('click', (e)=>obtainClickPosition(e))
+    }
+    
+    if (!container) return;
     container.innerHTML = ''
     container.appendChild(board)
 
-    if (props.status !== 'placingShips'){
-        container.classList.remove('board-large')
-        container.classList.remove('board')
-        container.classList.add('board-small')
-    } else {
-        container.classList.remove('board-small')
-        container.classList.add('board-large')
-    }
 
-    //add eventlisteners to monitor board clicks
-    board.addEventListener('click', (e) => {   
-        console.log(e) 
-        if (!e.target) return;
 
-        let payload = {
-        x: Number((e.target as HTMLElement).dataset.positionx),
-        y: Number((e.target as HTMLElement).dataset.positiony)
-        }
-        game.dispatch('clickBoard', payload)
-    })
 
     //toggle grid class based on props.status
 
@@ -82,8 +89,6 @@ var renderComponent = function(props: State){
     }
     
 }
-
-
 
 
 var renderPlayerBoard = component({game, 

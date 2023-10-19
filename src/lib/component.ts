@@ -1,10 +1,11 @@
 import type {State} from "../lib/types"
 
 type propsType = {
-    game:
+    game: any;
+    render: any
 }
 
-export default function component(props = {}){
+export default function component(props: propsType){
     var render = props.render
 
     props.game.events.subscribe('stateChange', (state: State)=>render(state))
