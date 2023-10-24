@@ -78,6 +78,9 @@
 }
 
 .board-control{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 300px;
     height: 300px;
     opacity: 1;
@@ -104,12 +107,6 @@
     background-color: red;
 }
 
-#controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
 .hide {
     display: none;
   }
@@ -120,6 +117,7 @@
     border: solid 1px green;
     height: fit-content;
     width: fit-content;
+    align-self: center;
 }
 
 .shipDisplay-vertical {
