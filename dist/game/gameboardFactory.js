@@ -1,26 +1,11 @@
 import Ship from './shipFactory.js';
 export default function Board() {
     var shipModels = [
-        {
-            name: 'Carrier',
-            size: 5
-        },
-        {
-            name: 'Battleship',
-            size: 4
-        },
-        {
-            name: 'Cruiser',
-            size: 3
-        },
-        {
-            name: 'Submarine',
-            size: 3
-        },
-        {
-            name: 'Destroyer',
-            size: 2
-        }
+        { name: 'Carrier', size: 5 },
+        { name: 'Battleship', size: 4 },
+        { name: 'Cruiser', size: 3 },
+        { name: 'Submarine', size: 3 },
+        { name: 'Destroyer', size: 2 }
     ];
     var playerFleet = []; //array contains objects of player ships from shipFactory: [...{name:string, position: [...{x:},{y:},{hit:}], ...methods}]
     var boardBoundary = { start: { x: 0, y: 0 }, end: { x: 9, y: 9 } };

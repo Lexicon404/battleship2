@@ -1,7 +1,13 @@
 * {
     margin:0;
     padding:0;
-    border: solid red 1px;
+}
+
+#status-board{
+    font-size: large;
+    font-weight: bold;
+    padding: 1rem;
+    text-align: center;
 }
 
 #game-screen{
@@ -9,6 +15,7 @@
     grid-template-columns: 300px 300px 300px;
     grid-template-rows: 300px 300px 300px;
     padding: 20px;
+    gap: 1rem;
 }
 
 
@@ -102,6 +109,39 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
+
 .hide {
     display: none;
   }
+
+
+#shipDisplay {
+    display: flex;
+    border: solid 1px green;
+    height: fit-content;
+    width: fit-content;
+}
+
+.shipDisplay-vertical {
+    flex-direction: column;
+}
+
+#shipDisplay > div  {
+    border: dotted 1px green;
+    height: 30px;
+    width: 30px;
+}
+
+header{
+    text-align: center;
+    padding: 1rem;
+}
+
+menu {
+    text-align: center;
+    padding: 1rem;
+}
+
+button:disabled {
+    background-color: gray;
+}

@@ -15,7 +15,7 @@ var renderComponent = function (props) {
     }
     //Builds player board for ship placement
     var board = document.createElement('div');
-    for (let i = 9; i >= 0; i--) {
+    for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
             let grid = document.createElement('div');
             grid.setAttribute('data-positionx', `${j}`);
@@ -29,6 +29,8 @@ var renderComponent = function (props) {
         var smallContainer = document.getElementById('small-board-container');
         board.classList.add('board-large');
         board.addEventListener('click', (e) => obtainClickPosition(e));
+        board.addEventListener('dragover', (e) => e.preventDefault());
+        board.addEventListener('drop', (e) => obtainClickPosition(e));
         if (smallContainer) {
             smallContainer.innerHTML = "";
         }

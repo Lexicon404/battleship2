@@ -16,7 +16,7 @@ var renderComponent = function(props: State){
 
     board.setAttribute('class', 'board-large');
 
-    for (let i=9; i>=0; i--){
+    for (let i=0; i<10; i++){
         for (let j=0; j<10; j++){
         let grid = document.createElement('div')
         grid.setAttribute('data-positionx', `${j}`)
@@ -47,14 +47,16 @@ var renderComponent = function(props: State){
 
     if(!props.status) return
 
-    if(props.board[1].positionShipPlaced.length>0){
-        props.board[1].positionShipPlaced.forEach(function(position){
-            let shipOnGrid = (container as HTMLElement).querySelector(`[data-positionx='${position.x}'][data-positiony='${position.y}']`)
-            if(shipOnGrid){
-                shipOnGrid.classList.add('ship-on-grid')
-            }
-        })
-    }
+    //uncomment this block to show enemy ships on board;
+
+    // if(props.board[1].positionShipPlaced.length>0){
+    //     props.board[1].positionShipPlaced.forEach(function(position){
+    //         let shipOnGrid = (container as HTMLElement).querySelector(`[data-positionx='${position.x}'][data-positiony='${position.y}']`)
+    //         if(shipOnGrid){
+    //             shipOnGrid.classList.add('ship-on-grid')
+    //         }
+    //     })
+    // }
 
 
     if(props.board[1].positionAttacked.length>0){
