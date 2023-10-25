@@ -29,8 +29,6 @@ var renderComponent = function (props) {
         var smallContainer = document.getElementById('small-board-container');
         board.classList.add('board-large');
         board.addEventListener('click', (e) => obtainClickPosition(e));
-        board.addEventListener('dragover', (e) => e.preventDefault());
-        board.addEventListener('drop', (e) => obtainClickPosition(e));
         if (smallContainer) {
             smallContainer.innerHTML = "";
         }

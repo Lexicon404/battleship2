@@ -22,7 +22,6 @@ function createShipButton(name: ModelName, fleetArray: Fleet = []){
             button.setAttribute("disabled", "")
         }    
     }
-
     return button;
 }
 
@@ -71,6 +70,71 @@ function createSelectionDisplay(shipName: ModelName, axis: xy){
     for (let i=0; i < shipLength; i++ ){
         display.appendChild(document.createElement('div'))
     }
+
+
+
+    // drag and drop functionality
+
+
+
+    display.addEventListener('dragstart', (e)=>{
+        var originRect = display.getBoundingClientRect();
+        var offsetX = e.clientX - originRect.x;
+        var offsetY = e.clientY - originRect.y;
+
+        var board = document.getElementById('large-board-container')
+
+        if (!board) return;
+
+        board.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            console.log(e.clientX, e.clientY)
+        } )
+        
+
+        board.addEventListener('drop', (e)=>{
+            e.preventDefault();
+            var movingRectX = e.clientX - offsetX;
+            var movingRectY = e.clientY - offsetY;
+            var boardGrids = document.querySelectorAll('.board-grid')
+            var closestGrid = getClosestGrid(boardGrids, movingRectX, movingRectY);
+
+            // console.log("offsets  " + offsetX, offsetY)
+            // console.log("movingRect  "+ movingRectX, movingRectY)
+            // console.log("mouseXY  " + e.clientX, e.clientY)
+            // console.log("first grid" + " " board.firstChild.firstChild)
+            // console.log("first grid" + " " + board.firstChild.firstChild.getBoundingClientRect().x, board.firstChild.firstChild.getBoundingClientRect().y)
+            // console.log("closest grid" + " " closestGrid)
+            // console.log("closest grid" + " " +closestGrid.getBoundingClientRect().x, closestGrid.getBoundingClientRect().y)
+    
+            let payload = {
+            x: Number(closestGrid.dataset.positionx),
+            y: Number(closestGrid.dataset.positiony)
+            }
+
+            game.dispatch('clickBoard', payload)
+
+        }, { once: true })
+    })
+
+
+    function getClosestGrid(grids: NodeListOf<Element>, x: number, y: number){
+        var boardGridsArray: Element[] = [...grids]
+
+        var closestGridResult: objectWithStringKey = boardGridsArray.reduce((closestGrid, currentGrid)=>{
+            var gridRect = currentGrid.getBoundingClientRect();
+            var distance = (x - gridRect.x)**2 + (y - gridRect.y)**2
+
+            if (distance < closestGrid.distance){
+                return {distance: distance, element: currentGrid}
+            } else {
+                return closestGrid
+            }
+        }, {distance: Number.POSITIVE_INFINITY})
+
+        return closestGridResult.element;
+    }
+
     return display
 }
 
@@ -83,11 +147,11 @@ var renderComponent = function (props: State){
         if (container && props.board && props.board[0] && props.board[0].playerFleet){
             container.appendChild(createShipButton(values, props.board[0].playerFleet))
         } else if (container){
-            container.appendChild(createShipButton(values))
+            container.appendChild(createShipButton(values));
         }
     }
-    container.appendChild(createOrientationButton(props.axis))
-    container.appendChild(createSelectionDisplay(props.selection, props.axis))
+    container.appendChild(createOrientationButton(props.axis));
+    container.appendChild(createSelectionDisplay(props.selection, props.axis));
 }
 
 var renderControl = component({ game,
